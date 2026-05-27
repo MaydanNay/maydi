@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mixnet</title>
+    <!-- Поисковая оптимизация -->
+    <meta name="description" content="Интерактивный лендинг экосистемы Helixa: фундаментальное ИИ-ядро и связанные проекты.">
+    <!-- Подключение шрифтов (хакерский моноширинный + строгий гротеск) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Матричный фон -->
+    <canvas id="matrix-canvas" class="matrix-bg"></canvas>
+
+    <div class="universe">
+        <div class="system-container">
+            <!-- Central Node (Helixa) -->
+            <div class="node helixa bright center" data-id="helixa" id="node-helixa">
+                <div class="node-content">HELIXA</div>
+            </div>
+
+            <!-- Inner Orbit (Mimora, Vivida) -> Active / Bright -->
+            <div class="orbit inner-orbit">
+                <div class="connector" style="transform: rotate(-90deg);"></div>
+                <div class="connector" style="transform: rotate(90deg);"></div>
+                
+                <div class="node mimora bright" data-id="mimora" id="node-mimora">
+                    <div class="node-content">MIMORA</div>
+                </div>
+                <div class="node vivida bright" data-id="vivida" id="node-vivida">
+                    <div class="node-content">VIVIDA</div>
+                </div>
+            </div>
+
+            <!-- Outer Orbit (Lyutik, MixLink) -> In Dev / Darkened -->
+            <div class="orbit outer-orbit">
+                <div class="connector" style="transform: rotate(0deg);"></div>
+                <div class="connector" style="transform: rotate(180deg);"></div>
+
+                <div class="node lyutik dark" data-id="lyutik" id="node-lyutik">
+                    <div class="node-content">LYUTIK</div>
+                </div>
+                <div class="node mixlink dark" data-id="mixlink" id="node-mixlink">
+                    <div class="node-content">MIXLINK</div>
+                </div>
+            </div>
+
+            <!-- Secret Orbit -> Secret projects / Glitch -->
+            <div class="orbit secret-orbit">
+                <div class="connector" style="transform: rotate(-135deg);"></div>
+                <div class="connector" style="transform: rotate(45deg);"></div>
+                <div class="connector" style="transform: rotate(-45deg);"></div>
+
+                <div class="node secret glitch" data-id="secret1" id="node-secret1">
+                    <div class="node-content">?</div>
+                </div>
+                <div class="node secret glitch" data-id="secret2" id="node-secret2">
+                    <div class="node-content">?</div>
+                </div>
+                <div class="node secret glitch" data-id="secret3" id="node-secret3">
+                    <div class="node-content">?</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tooltip (Информационное мини-окно) -->
+    <div id="tooltip" class="tooltip hidden">
+        <h3 id="tt-title">Title</h3>
+        <p id="tt-desc">Description</p>
+        <button id="tt-cta" class="cta-btn">ACTION</button>
+    </div>
+
+    <!-- Модальное окно (Терминал проекта) -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">TITLE</h2>
+                <button id="modal-close">[ X ] ЗАКРЫТЬ</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Контент генерируется через JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

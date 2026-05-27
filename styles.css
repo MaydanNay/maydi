@@ -1,0 +1,543 @@
+/* Globals */
+:root {
+    --bg-color: #050505;
+    --bg-tooltip: rgba(0, 0, 0, 0.85);
+    --text-bright: #ffffff;
+    --text-dark: #666666;
+    --border-bright: #ffffff;
+    --border-dark: #444444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    /* Добавляем легкий градиент-свечение в центре, уходящий в кромешную тьму */
+    background-image: radial-gradient(circle at 50% 50%, #151515 0%, #000000 100%);
+    color: var(--text-bright);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.universe {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Поверх матрицы */
+    /* Перспектива для 3D Parallax эффекта */
+    perspective: 1200px;
+}
+
+.system-container {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Уменьшаем масштаб всей системы для эффекта отдаления */
+    transform: scale(0.65) rotateX(0deg) rotateY(0deg);
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out; /* Плавность для параллакса */
+    
+    /* Анимация загрузки (Entrance) */
+    animation: system-boot 2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+/* Orbits */
+.orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px dashed var(--border-dark);
+    border-radius: 50%;
+    animation: spin linear infinite;
+    /* Позволяем событиям мыши проходить сквозь орбиты к узлам */
+    pointer-events: none;
+}
+
+.inner-orbit {
+    width: 320px;
+    height: 320px;
+    animation-duration: 45s;
+}
+
+.outer-orbit {
+    width: 520px;
+    height: 520px;
+    animation-duration: 65s;
+    /* Дальняя орбита крутится в обратную сторону */
+    animation-name: spin-reverse;
+}
+
+.secret-orbit {
+    width: 720px;
+    height: 720px;
+    animation-duration: 95s;
+    border: 1px dotted #222;
+}
+
+/* Nodes Base Container */
+.node {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    /* margin-top/left используется как смещение, чтобы не занимать css transform translate */
+    margin-top: -40px; 
+    margin-left: -40px;
+    cursor: pointer;
+    /* Все узлы-контейнеры восстанавливают pointer-events */
+    pointer-events: auto;
+    
+    /* Отвязанные свойства CSS (modern css) для ховера, не конфликтуют с transform-анимациями */
+    transition: scale 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    
+    /* Контр-вращение узла-контейнера, чтобы текст оставался горизонтальным */
+    animation: counter-spin linear infinite;
+    z-index: 2; /* Выше линий связи */
+}
+
+/* Node Content Box (для эффекта левитации - float) */
+.node-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    
+    /* Анимация левитации (float) отключена */
+    animation: none;
+}
+
+/* Center Helixa Node */
+.center.node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Размер центрального узла больше */
+    margin-top: -65px;
+    margin-left: -65px;
+    width: 130px;
+    height: 130px;
+    /* Не нуждается в контр-вращении */
+    animation: none;
+    z-index: 10;
+}
+.center.node .node-content {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    animation: none;
+}
+
+/* Node Positions on Orbits */
+/* Inner Orbit */
+#node-mimora { top: 0%; left: 50%; }
+#node-vivida { top: 100%; left: 50%; }
+
+/* Outer Orbit */
+#node-lyutik { top: 50%; left: 100%; }
+#node-mixlink { top: 50%; left: 0%; }
+
+/* Secret Orbit */
+#node-secret1 { top: 14%; left: 14%; }
+#node-secret2 { top: 86%; left: 86%; }
+#node-secret3 { top: 14%; left: 86%; }
+
+
+/* Animations Setup */
+@keyframes system-boot {
+    0% { transform: scale(0.1) rotateZ(-30deg); opacity: 0; filter: blur(20px); }
+    100% { transform: scale(0.65) rotateZ(0deg); opacity: 1; filter: blur(0); }
+}
+
+@keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes counter-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+@keyframes counter-spin-reverse {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* Применение длительности анимаций к узлам */
+.inner-orbit .node { animation-duration: 45s; }
+.outer-orbit .node { 
+    animation-name: counter-spin-reverse; /* компенсируем spin-reverse */
+    animation-duration: 65s; 
+}
+.secret-orbit .node { animation-duration: 95s; }
+
+
+/* Visual Stylings (States) */
+
+/* Яркие (Активные) состояния - Helixa, Mimora, Vivida */
+.node.bright {
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+.node.bright:hover {
+    scale: 1.1;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px rgba(255, 255, 255, 0.3);
+}
+
+/* Потемневшие (В разработке) состояния - Lyutik, MixLink */
+.node.dark {
+    background: var(--bg-color); /* Черный фон для полного перекрытия линии орбиты */
+    color: var(--text-dark);
+    border: 1px solid var(--border-dark);
+    /* opacity: 0.5; убрано, чтобы фон был на 100% непрозрачным */
+}
+.node.dark:hover {
+    scale: 1.1;
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Секретные проекты */
+.node.secret {
+    background: #000000;
+    color: #333333;
+    border: 1px dashed #333333;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 18px;
+}
+.node.secret:hover {
+    scale: 1.1;
+    color: #ffffff;
+    border-color: #ffffff;
+    border-style: solid;
+    text-shadow: 0 0 8px #ffffff;
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+}
+
+/* Эффект глитча при наведении на символ "?" */
+.glitch:hover .node-content {
+    animation: glitch-anim 0.2s linear infinite;
+}
+@keyframes glitch-anim {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+
+/* Tooltip (Мини-окно) */
+.tooltip {
+    position: fixed; /* Позиционируется скриптом на десктопе через top/left */
+    width: 280px;
+    background: var(--bg-tooltip);
+    border: 1px solid #444;
+    padding: 24px;
+    color: #ffffff;
+    z-index: 1000;
+    pointer-events: none; /* изначально не кликабельна */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+    
+    /* Смещение для плавной анимации появления */
+    transform: translateY(10px) translateX(0);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+    pointer-events: auto; /* Делаем кликабельной кнопку внутри */
+}
+.tooltip.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.tooltip h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.tooltip p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #b0b0b0;
+    margin-bottom: 24px;
+    min-height: 60px; /* Чтобы блок не прыгал при глитче текста */
+}
+
+/* Кнопка CTA внутри тултипа */
+.cta-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    letter-spacing: 1px;
+}
+.cta-btn:hover {
+    background: #ffffff;
+    color: #000000;
+}
+.cta-btn.error {
+    /* Только ЧБ для ошибки (добавим мерцающий эффект вместо цвета) */
+    border-color: #555;
+    color: #fff;
+    border-style: dashed;
+    background: #111;
+}
+.cta-btn.error:hover {
+    background: #fff;
+    color: #000;
+    border-style: solid;
+}
+
+/* Адаптивность для мобильных устройств (< 768px) */
+@media (max-width: 768px) {
+    .universe {
+        height: auto;
+        padding: 60px 20px;
+        align-items: flex-start;
+    }
+    .system-container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transform: none; /* Сброс отдаления для читаемости на телефоне */
+    }
+    
+    /* Отключаем орбитальную структуру и вращения */
+    .orbit {
+        position: static;
+        width: 100%;
+        height: auto;
+        border: none;
+        animation: none;
+        transform: none;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .node, .center.node {
+        position: static;
+        width: 100%;
+        height: 70px;
+        margin: 0;
+        border-radius: 8px; /* Превращаем круги в плашки */
+        animation: none !important;
+        transform: none !important;
+        justify-content: flex-start;
+        padding-left: 20px;
+    }
+    
+    .node-content {
+        width: auto;
+        height: auto;
+        animation: none !important;
+        text-align: left;
+    }
+    
+    /* Сбрасываем hover-эффекты трансформации, оставляем только цветовые */
+    .node.bright:hover, .node.dark:hover, .node.secret:hover {
+        scale: 1;
+        transform: none;
+    }
+    
+    /* В мобильной версии Tooltip фиксируется внизу как шторка (BottomSheet) */
+    .tooltip {
+        position: fixed;
+        bottom: 0;
+        left: 0 !important; /* переопределяем инлайн-стили JS */
+        top: auto !important; /* переопределяем инлайн-стили JS */
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+        border-bottom: none;
+        transform: translateY(100%);
+        padding: 30px 20px;
+    }
+    
+    .tooltip.visible {
+        transform: translateY(0);
+    }
+    
+    /* Скрываем коннекторы на мобильных, так как структура меняется на список */
+    .connector {
+        display: none !important;
+    }
+}
+
+/* Background Matrix */
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.15; /* Тусклый прозрачный дождь */
+}
+
+/* Connectors (Линии связи) */
+.connector {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 100%);
+    transform-origin: left center;
+    z-index: 0;
+    pointer-events: none;
+    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+/* --- Modal Terminal Panel --- */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 800px;
+    height: 90vh;
+    border: 1px solid #ffffff;
+    background: #050505;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8), 0 0 15px rgba(255,255,255,0.1);
+    transform: translateY(30px) scale(0.98);
+    transition: transform 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed #444;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+#modal-close {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s, text-shadow 0.2s;
+}
+
+#modal-close:hover {
+    color: #fff;
+    text-shadow: 0 0 5px #fff;
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    color: #d0d0d0;
+    font-size: 14px;
+    line-height: 1.6;
+    padding-right: 10px;
+}
+.modal-body::-webkit-scrollbar { width: 6px; }
+.modal-body::-webkit-scrollbar-track { background: #111; }
+.modal-body::-webkit-scrollbar-thumb { background: #444; }
+
+.modal-body p { margin-bottom: 10px; }
+.modal-body .terminal-line {
+    opacity: 0;
+    animation: fade-in-line 0.1s forwards;
+}
+
+@keyframes fade-in-line {
+    to { opacity: 1; }
+}
+
+/* Blur effect for system container when modal is open */
+.system-container.blurred {
+    filter: blur(8px) brightness(0.4);
+    pointer-events: none;
+}
