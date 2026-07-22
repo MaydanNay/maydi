@@ -1,0 +1,320 @@
+@import "tailwindcss";
+
+/* 8-point grid + monochrome palette */
+:root {
+  --color-bg-0: #0c0c0d;
+  --color-bg-1: #121214;
+  --color-bg-2: #1a1a1d;
+  --color-bg-3: #242428;
+  --color-line: #3a3a40;
+  --color-muted: #8a8a93;
+  --color-text: #e8e8ec;
+  --color-white: #ffffff;
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+  --space-12: 96px;
+
+  --font-display: "Syne", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 28px;
+  --text-2xl: 40px;
+  --text-3xl: 56px;
+
+  --radius: 0;
+  --max-width: 1120px;
+}
+
+@theme {
+  --color-bg-0: var(--color-bg-0);
+  --color-bg-1: var(--color-bg-1);
+  --color-bg-2: var(--color-bg-2);
+  --color-bg-3: var(--color-bg-3);
+  --color-line: var(--color-line);
+  --color-muted: var(--color-muted);
+  --color-text: var(--color-text);
+  --color-white: var(--color-white);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-bg-0);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Kill native OS scrollbar chrome (Windows arrows/track) — #root scrolls instead */
+html,
+body {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+#root {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#root::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+  background: transparent;
+}
+
+/* Nested scroll areas: thumb-only if browser respects it */
+.maydi-scroll,
+[data-maydi-scroll] {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line) transparent;
+}
+
+.maydi-scroll::-webkit-scrollbar,
+[data-maydi-scroll]::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+}
+
+.maydi-scroll::-webkit-scrollbar-track,
+.maydi-scroll::-webkit-scrollbar-track-piece,
+[data-maydi-scroll]::-webkit-scrollbar-track,
+[data-maydi-scroll]::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+.maydi-scroll::-webkit-scrollbar-thumb,
+[data-maydi-scroll]::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border: none;
+  border-radius: 0;
+}
+
+.maydi-scroll::-webkit-scrollbar-button,
+[data-maydi-scroll]::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Custom overlay thumb for main page scroll */
+.maydi-scrollbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  width: 8px;
+  pointer-events: none;
+}
+
+.maydi-scrollbar__thumb {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  width: 3px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: var(--color-line);
+  cursor: grab;
+  pointer-events: auto;
+  transition: background 0.15s ease;
+}
+
+.maydi-scrollbar__thumb:hover,
+.maydi-scrollbar__thumb:active {
+  background: var(--color-muted);
+  cursor: grabbing;
+}
+
+::selection {
+  background: var(--color-white);
+  color: var(--color-bg-0);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+/* maydi → Maydan / Diana hover reveal (tails overlay, never push layout) */
+.brand-mark {
+  display: inline-flex;
+  align-items: baseline;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+  user-select: none;
+}
+
+.brand-mark__part {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  outline: none;
+  cursor: default;
+}
+
+.brand-mark__part.is-open,
+.brand-mark__part:focus-visible {
+  z-index: 3;
+}
+
+/* Black plate covers the other half; open name expands from its own place */
+.brand-mark[data-open='may'] .brand-mark__part[data-part='di']::after,
+.brand-mark[data-open='di'] .brand-mark__part[data-part='may']::after {
+  content: '';
+  position: absolute;
+  inset: -0.06em -0.04em;
+  z-index: 4;
+  background: #000;
+  pointer-events: none;
+}
+
+.brand-mark__stem {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+.brand-mark__tail {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  /* Match the cover plate so expanding letters sit cleanly over it */
+  background: #000;
+  padding-right: 0.12em;
+  pointer-events: none;
+  transition:
+    max-width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease;
+}
+
+.brand-mark__part.is-open .brand-mark__tail,
+.brand-mark__part:focus-visible .brand-mark__tail {
+  max-width: 4.2em;
+  opacity: 1;
+}
+
+.brand-mark__part:focus-visible .brand-mark__stem {
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+/* Products horizontal auto-scroll — seamless loop via duplicated track half */
+.projects-marquee {
+  overflow: hidden;
+  width: 100%;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 4%,
+    #000 96%,
+    transparent 100%
+  );
+}
+
+.projects-marquee__track {
+  display: flex;
+  width: max-content;
+  padding-block: var(--space-1);
+  animation: projects-marquee-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.projects-marquee__row {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+.projects-marquee:hover .projects-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes projects-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-marquee {
+    overflow-x: auto;
+    mask-image: none;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .projects-marquee::-webkit-scrollbar {
+    display: none;
+  }
+
+  .projects-marquee__track {
+    animation: none;
+    padding-inline: var(--space-3);
+  }
+
+  .projects-marquee__row[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+
+

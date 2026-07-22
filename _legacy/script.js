@@ -1,10 +1,24 @@
 // База данных узлов
 const ecoData = {
     helixa: {
-        title: "Helixa — когнитивное ядро экосистемы.",
-        desc: "ДНК и душа для автономных агентов нового поколения.",
+        title: "Helixa (Ядро и Мозг)",
+        sections: [
+            {
+                label: "Что это",
+                text: "Наше проприетарное AI-ядро. Движок генерации «синтетических душ»."
+            },
+            {
+                label: "Суть",
+                text: "Это чистый, изолированный разум. Helixa отвечает за психологию (Big5), память (векторную и графовую), характер и принятие решений. Именно здесь работает Gatekeeper, который решает - ответить юзеру, проигнорировать скучный питч или кинуть в блок."
+            },
+            {
+                label: "Бизнес-ценность",
+                text: "Это наш «Intel Inside». Независимый, Cloud-Native микросервис, который мы можем подключать к любым будущим продуктам."
+            }
+        ],
         cta: "Подробнее",
-        action: "modal",
+        action: "link",
+        link: "helixa.html",
         details: [
             "> ИНИЦИАЛИЗАЦИЯ ПОТОКА ДАННЫХ...",
             "> СТАТУС ЯДРА: АКТИВЕН",
@@ -12,8 +26,8 @@ const ecoData = {
             "",
 
             "[ОПИСАНИЕ]:",
-            "Helixa — это инфраструктурное ядро, которое делает искусственный интеллект по-настоящему человечным.",
-            "Наша миссия — задать мировой стандарт создания ИИ-агентов, наделив их способностью понимать человеческую натуру, эмоции и контекст действий.",
+            "Helixa - это инфраструктурное ядро, которое делает искусственный интеллект по-настоящему человечным.",
+            "Наша миссия - задать мировой стандарт создания ИИ-агентов, наделив их способностью понимать человеческую натуру, эмоции и контекст действий.",
             "Это идеальный фундамент для разработки сервисов, требующих максимальной эмпатии и глубокого когнитивного размышления.",
             "",
 
@@ -35,44 +49,58 @@ const ecoData = {
         ]
     },
     vivida: {
-        title: "Vivida",
-        desc: "Платформа генерации и управления автономными ИИ-инфлюенсерами и виртуальными моделями.",
-        cta: "Изучить платформу",
-        action: "modal",
-        details: [
-            "> ЗАГРУЗКА ВИЗУАЛЬНЫХ МАТРИЦ...",
-            "> ПОДКЛЮЧЕНИЕ К HELIXA CORE...",
-            "> СИНХРОНИЗАЦИЯ УСПЕШНА",
-            "",
-            "VIVIDA — платформа-агентство для создания виртуальных инфлюенсеров нового поколения.",
-            "Она берет личность из Helixa и оборачивает её в безупречную визуальную оболочку, готовую к взаимодействию с социальной средой.",
-            "",
-            "[ФУНКЦИИ]:",
-            "- Генерация гиперреалистичного фото/видео контента.",
-            "- Интеграция с крупнейшими соцсетями.",
-            "- Автономное ведение профилей, общение в комментариях и Direct.",
-            "- Управление репутацией 24/7.",
-            "",
-            "> ПЛАТФОРМА ФУНКЦИОНИРУЕТ В ШТАТНОМ РЕЖИМЕ"
-        ]
+        title: "Vivida (Агенты в реальном мире)",
+        sections: [
+            {
+                label: "Что это",
+                text: "Платформа для создания и управления автономными ИИ-инфлюенсерами."
+            },
+            {
+                label: "Суть",
+                text: "Если в Mimora ИИ-люди сидят в закрытой лаборатории, то Vivida выпускает их в реальный интернет. Платформа берёт личность из Helixa, добавляет узлы генерации медиаконтента (фото/видео) и позволяет ИИ-блогеру самостоятельно планировать контент-план, публиковать посты в соцсетях и общаться с живыми подписчиками, не выходя из образа."
+            },
+            {
+                label: "Бизнес-ценность",
+                text: "Автоматизированные виртуальные амбассадоры для брендов и медиа-компаний. Фабрика инфлюенсеров, которые никогда не устают и не требуют зарплату."
+            }
+        ],
+        cta: "Подробнее",
+        action: "link",
+        link: "vivida.html"
     },
     mimora: {
-        title: "Mimora",
-        desc: "Среда ИИ-симуляций для тестирования бизнес-гипотез с использованием роя автономных агентов.",
-        cta: "Запросить доступ",
-        action: "soon"
+        title: "Mimora (Среда и Физика)",
+        sections: [
+            {
+                label: "Что это",
+                text: "B2B SaaS-платформа для глубокой симуляции маркетинга и CustDev-а."
+            },
+            {
+                label: "Суть",
+                text: "Это «физика» мира. Mimora берёт мозги из Helixa и помещает их в управляемую песочницу. Она отвечает за интерфейс, задержки времени (статусы «печатает...»), очереди сообщений, дашборды, воронки конверсий и биллинг."
+            },
+            {
+                label: "Бизнес-ценность",
+                text: "Инструмент для брендов и маркетологов, позволяющий тестировать идеи, продукты и рекламные кампании на фокус-группах из 100% реалистичных ИИ-людей до того, как тратить реальные бюджеты."
+            }
+        ],
+        cta: "Подробнее",
+        action: "link",
+        link: "mimora.html"
     },
     lyutik: {
         title: "Lyutik",
         desc: "Персональный ИИ-ассистент, финансовый эдвайзер и супервизор.",
-        cta: "Подключить",
-        action: "soon"
+        cta: "Подробнее",
+        action: "link",
+        link: "lyutik.html"
     },
     mixlink: {
         title: "MixLink",
         desc: "Конструктор профилей и онлайн-магазинов для ИИ-агентов и людей.",
-        cta: "Создать профиль",
-        action: "soon"
+        cta: "Подробнее",
+        action: "link",
+        link: "mixlink.html"
     },
     secret1: {
         title: "0xUNKNOWN",
@@ -151,50 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch(e) {}
     }
 
-    // --- Matrix Rain ---
-    const canvas = document.getElementById('matrix-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let width = window.innerWidth;
-        let height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-
-        const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~';
-        const fontSize = 14;
-        let columns = Math.floor(width / fontSize);
-        let drops = [];
-        for(let x = 0; x < columns; x++) drops[x] = Math.random() * -100;
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, width, height);
-            ctx.fillStyle = '#222222'; // Очень тусклый текст матрицы для создания глубины космоса
-            ctx.font = fontSize + 'px monospace';
-            
-            for (let i = 0; i < drops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                
-                if (drops[i] * fontSize > height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
-        setInterval(drawMatrix, 50);
-
-        window.addEventListener('resize', () => {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            canvas.width = width;
-            canvas.height = height;
-            columns = Math.floor(width / fontSize);
-            drops = [];
-            for(let x = 0; x < columns; x++) drops[x] = Math.random() * -100;
-        });
-    }
-
     let activeNodeData = null;
     let encryptInterval = null;
     let hideTimeout = null;
@@ -204,12 +188,41 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Функция скрытия тултипа
     function closeTooltip() {
-        tooltip.classList.remove('visible');
+        tooltip.classList.remove('visible', 'tooltip--rich');
         tooltip.classList.add('hidden');
         clearInterval(encryptInterval);
         activeNodeData = null;
     }
     
+    function getTooltipWidth(data) {
+        return data.sections ? 380 : 280;
+    }
+
+    function fillTooltip(data) {
+        ttTitle.innerText = data.title;
+        ttCta.innerText = data.cta;
+        ttCta.className = 'cta-btn';
+
+        if (data.sections) {
+            tooltip.classList.add('tooltip--rich');
+            ttDesc.innerHTML = data.sections.map((section) => (
+                `<div class="tooltip-block">` +
+                `<span class="tooltip-block__label">${section.label}:</span>` +
+                `<p>${section.text}</p>` +
+                `</div>`
+            )).join('');
+            return;
+        }
+
+        tooltip.classList.remove('tooltip--rich');
+        if (data.action === 'encrypted') {
+            runEncryption(data.desc);
+            return;
+        }
+
+        ttDesc.textContent = data.desc;
+    }
+
     // Функция запуска визуального шифрования
     function runEncryption(finalText) {
         clearInterval(encryptInterval);
@@ -253,39 +266,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = ecoData[id];
             activeNodeData = data;
             
-            // Абсолютное позиционирование тултипа рядом с узлом
             const rect = node.getBoundingClientRect();
-            // Возникает правее и чуть выше (20px отступ)
+            const tooltipWidth = getTooltipWidth(data);
             let leftPos = rect.right + 20;
             let topPos = rect.top - 20;
-            
-            // Если тултип не влезает в экран справа, сдвигаем его влево от узла
-            if(leftPos + 320 > window.innerWidth) { // 320px примерная ширина с запасом
-                leftPos = rect.left - 300;
+
+            if (leftPos + tooltipWidth > window.innerWidth) {
+                leftPos = rect.left - tooltipWidth - 20;
             }
-            // Проверка по высоте (низ)
-            if(topPos + 200 > window.innerHeight) {
-                topPos = window.innerHeight - 220; 
+            const maxHeight = data.sections ? 420 : 220;
+            if (topPos + maxHeight > window.innerHeight) {
+                topPos = window.innerHeight - maxHeight - 20;
             }
-            // Проверка по высоте (верх)
-            if(topPos < 20) {
+            if (topPos < 20) {
                 topPos = 20;
             }
 
             tooltip.style.left = leftPos + 'px';
             tooltip.style.top = topPos + 'px';
-            
-            // Заполнение контента
-            ttTitle.innerText = data.title;
-            ttCta.innerText = data.cta;
-            ttCta.className = 'cta-btn'; // сброс кастомных классов кнопки
-            
+
+            clearInterval(encryptInterval);
+            fillTooltip(data);
+
             if (data.action === 'encrypted') {
-                runEncryption(data.desc);
                 playGlitchSound();
             } else {
-                clearInterval(encryptInterval);
-                ttDesc.innerText = data.desc;
                 playHoverSound();
             }
             
@@ -309,17 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = ecoData[id];
             activeNodeData = data;
             
-            ttTitle.innerText = data.title;
-            ttCta.innerText = data.cta;
-            ttCta.className = 'cta-btn';
-            
-            if (data.action === 'encrypted') {
-                runEncryption(data.desc);
-            } else {
-                clearInterval(encryptInterval);
-                ttDesc.innerText = data.desc;
-            }
-            
+            clearInterval(encryptInterval);
+            fillTooltip(data);
+
             tooltip.classList.remove('hidden');
             tooltip.classList.add('visible');
         });
@@ -340,8 +337,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!activeNodeData) return;
         
         if (activeNodeData.action === 'url') {
-            // Переход по внешней ссылке
             window.location.href = activeNodeData.url;
+        } else if (activeNodeData.action === 'link') {
+            window.location.href = activeNodeData.link;
         } else if (activeNodeData.action === 'modal') {
             openTerminalModal(activeNodeData);
         } else if (activeNodeData.action === 'soon') {
@@ -381,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Скрытие карточки на мобильных устройствах при клике "мимо"
     document.addEventListener('click', (e) => {
         if (window.innerWidth <= 768) {
-            // Если клик не в тултипе и не по узлу экосистемы — закрываем тултип
+            // Если клик не в тултипе и не по узлу экосистемы - закрываем тултип
             if (!tooltip.contains(e.target) && !e.target.closest('.node')) {
                 closeTooltip();
             }

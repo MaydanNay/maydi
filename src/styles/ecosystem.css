@@ -1,0 +1,356 @@
+/* Legacy ecosystem graph visuals — scoped under .eco-universe */
+
+.eco-universe {
+  --eco-bg: #050505;
+  --eco-text-bright: #ffffff;
+  --eco-text-dark: #666666;
+  --eco-border-bright: #ffffff;
+  --eco-border-dark: #444444;
+
+  position: relative;
+  width: 100%;
+  min-height: min(100svh, 920px);
+  height: min(100svh, 920px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-image: radial-gradient(circle at 50% 50%, #151515 0%, #000000 100%);
+  perspective: 1200px;
+}
+
+.eco-universe--full {
+  min-height: 100svh;
+  height: 100svh;
+}
+
+.eco-universe--full .eco-universe__system {
+  transform: scale(0.65);
+  animation-name: eco-system-boot-full;
+}
+
+.eco-universe__system {
+  position: relative;
+  width: 800px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.72) rotateX(0deg) rotateY(0deg);
+  transform-style: preserve-3d;
+  transition: filter 0.35s ease, transform 0.1s ease-out;
+  animation: eco-system-boot 2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+.eco-universe__system.is-blurred {
+  filter: blur(8px) brightness(0.4);
+  pointer-events: none;
+}
+
+.eco-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px dashed var(--eco-border-dark);
+  border-radius: 50%;
+  animation: eco-spin linear infinite;
+  pointer-events: none;
+}
+
+.eco-orbit--inner {
+  width: 320px;
+  height: 320px;
+  animation-duration: 45s;
+}
+
+.eco-orbit--outer {
+  width: 520px;
+  height: 520px;
+  animation-duration: 65s;
+  animation-name: eco-spin-reverse;
+}
+
+.eco-orbit--secret {
+  width: 720px;
+  height: 720px;
+  animation-duration: 95s;
+  border: 1px dotted #222;
+}
+
+.eco-node {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-top: -40px;
+  margin-left: -40px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: scale 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  animation: eco-counter-spin linear infinite;
+  z-index: 2;
+  background: transparent;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
+}
+
+/* Satellite caption sits beside the filled disc (not squeezed inside a stroke ring). */
+.eco-node__caption {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: "Syne", sans-serif;
+  pointer-events: none;
+}
+
+.eco-node--bright .eco-node__caption {
+  color: #ffffff;
+}
+
+.eco-node--dark .eco-node__caption {
+  color: var(--eco-text-dark);
+}
+
+.eco-node--dark:hover .eco-node__caption {
+  color: #ffffff;
+}
+
+.eco-node__label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-align: center;
+  font-family: "Syne", sans-serif;
+}
+
+.eco-node--center {
+  top: 50%;
+  left: 50%;
+  margin-top: -65px;
+  margin-left: -65px;
+  width: 130px;
+  height: 130px;
+  animation: none;
+  z-index: 10;
+}
+
+.eco-node--center .eco-node__label {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+#eco-node-mimora { top: 0%; left: 50%; }
+#eco-node-vivida { top: 100%; left: 50%; }
+#eco-node-lyutik { top: 50%; left: 100%; }
+#eco-node-mixlink { top: 50%; left: 0%; }
+#eco-node-secret1 { top: 14%; left: 14%; }
+#eco-node-secret2 { top: 86%; left: 86%; }
+#eco-node-secret3 { top: 14%; left: 86%; }
+
+/* Keep captions inside the system box on the right-hand satellites */
+#eco-node-lyutik .eco-node__caption,
+#eco-node-secret2 .eco-node__caption,
+#eco-node-secret3 .eco-node__caption {
+  left: auto;
+  right: calc(100% + 12px);
+}
+
+.eco-orbit--inner .eco-node { animation-duration: 45s; }
+.eco-orbit--outer .eco-node {
+  animation-name: eco-counter-spin-reverse;
+  animation-duration: 65s;
+}
+.eco-orbit--secret .eco-node { animation-duration: 95s; }
+
+.eco-node--bright {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.eco-node--bright:hover {
+  scale: 1.1;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 50px rgba(255, 255, 255, 0.3);
+}
+
+.eco-node--dark {
+  background: var(--eco-bg);
+  color: var(--eco-text-dark);
+  border: 1px solid var(--eco-border-dark);
+}
+
+.eco-node--dark:hover {
+  scale: 1.1;
+  color: #ffffff;
+  border-color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+.eco-node--secret {
+  background: #000000;
+  color: #333333;
+  border: 1px dashed #333333;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 18px;
+}
+
+.eco-node--secret:hover {
+  scale: 1.1;
+  color: #ffffff;
+  border-color: #ffffff;
+  border-style: solid;
+  text-shadow: 0 0 8px #ffffff;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.eco-node--glitch:hover .eco-node__label {
+  animation: eco-glitch-anim 0.2s linear infinite;
+}
+
+.eco-connector {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 100%);
+  transform-origin: left center;
+  z-index: 0;
+  pointer-events: none;
+  border-top: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+@keyframes eco-system-boot {
+  0% { transform: scale(0.1) rotateZ(-30deg); opacity: 0; filter: blur(20px); }
+  100% { transform: scale(0.72) rotateZ(0deg); opacity: 1; filter: blur(0); }
+}
+
+@keyframes eco-system-boot-full {
+  0% { transform: scale(0.1) rotateZ(-30deg); opacity: 0; filter: blur(20px); }
+  100% { transform: scale(0.65) rotateZ(0deg); opacity: 1; filter: blur(0); }
+}
+
+@keyframes eco-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes eco-spin-reverse {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes eco-counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes eco-counter-spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes eco-glitch-anim {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@media (max-width: 768px) {
+  .eco-universe {
+    height: auto;
+    min-height: 0;
+    padding: 48px 20px 64px;
+    align-items: flex-start;
+  }
+
+  .eco-universe__system {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transform: none;
+    animation: none;
+  }
+
+  .eco-universe__system.is-blurred {
+    filter: none;
+    pointer-events: auto;
+    opacity: 0.35;
+  }
+
+  .eco-orbit {
+    position: static;
+    width: 100%;
+    height: auto;
+    border: none;
+    animation: none;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .eco-node,
+  .eco-node--center {
+    position: static;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    border-radius: 8px;
+    animation: none !important;
+    transform: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+    gap: 12px;
+  }
+
+  .eco-node__label,
+  .eco-node__caption {
+    position: static;
+    transform: none;
+    width: auto;
+    height: auto;
+    animation: none !important;
+    text-align: left;
+    left: auto;
+    top: auto;
+  }
+
+  .eco-node--bright .eco-node__caption,
+  .eco-node--dark .eco-node__caption {
+    color: inherit;
+  }
+
+  .eco-node--bright:hover,
+  .eco-node--dark:hover,
+  .eco-node--secret:hover {
+    scale: 1;
+    transform: none;
+  }
+
+  .eco-connector {
+    display: none !important;
+  }
+}
