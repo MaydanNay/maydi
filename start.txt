@@ -1,20 +1,27 @@
 Инструкция по запуску maydi_promo (React SPA)
 
-1. Перейдите в папку:
-   cd /home/maydan/projects/mixnet/maydi_promo
-
-2. Установите зависимости (один раз):
+1. Установите зависимости (один раз):
    npm install
 
-3. Dev-сервер:
+2. Dev-сервер (в WSL):
+   bash scripts/dev.sh
+
+   или:
    npm run dev
 
-4. Откройте:
-   http://localhost:5173           — главная
-   http://localhost:5173/ecosystem — интерактивная экосистема
+3. Откройте:
+   http://localhost:5180           — главная
+   http://localhost:5180/ecosystem — интерактивная экосистема
 
 Сборка:
    npm run build
    npm run preview
 
 Старый статический лендинг: _legacy/
+
+
+
+для дианы 
+
+   cd /home/diana/progects/maydi
+   bash scripts/dev.sh

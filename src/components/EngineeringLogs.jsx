@@ -1,44 +1,47 @@
+import { motion } from 'framer-motion';
 import { useLocale } from '../i18n/LocaleContext';
 import { SectionHeading } from './ui/SectionHeading';
+
+const ease = [0.22, 1, 0.36, 1];
 
 export default function EngineeringLogs() {
   const { dict } = useLocale();
   const { logs } = dict;
 
   return (
-    <section
-      id="engineering-logs"
-      className="border-t border-[var(--color-line)] bg-[var(--color-bg-1)] px-[var(--space-3)] py-[var(--space-10)] md:px-[var(--space-6)]"
-    >
-      <div className="mx-auto max-w-[var(--max-width)]">
-        <SectionHeading title={logs.title} />
+    <section id="engineering-logs" className="page-tail__section">
+      <div className="page-tail__inner">
+        <div className="page-tail__split">
+          <div className="page-tail__split-head">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease }}
+              viewport={{ once: true, margin: '-8% 0px' }}
+            >
+              <SectionHeading kicker={logs.kicker} title={logs.title} className="mb-0" />
+              <p className="page-tail__log-hint">{logs.hint}</p>
+            </motion.div>
+          </div>
 
-        <div className="border border-[var(--color-line)] bg-[var(--color-bg-0)] p-[var(--space-4)] md:p-[var(--space-5)]">
-          <p className="mb-[var(--space-4)] font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-[var(--color-muted)]">
-            {logs.hint}
-          </p>
-
-          <ul className="flex flex-col gap-[var(--space-4)]" aria-label={logs.title}>
-            {logs.entries.map((entry) => (
-              <li
+          <ul className="page-tail__log-list page-tail__split-body" aria-label={logs.title}>
+            {logs.entries.map((entry, index) => (
+              <motion.li
                 key={`${entry.date}-${entry.tag}`}
-                className="border-t border-[var(--color-line)] pt-[var(--space-3)] first:border-t-0 first:pt-0"
+                className="page-tail__log-item"
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, ease, delay: index * 0.05 }}
+                viewport={{ once: true, margin: '-5% 0px' }}
               >
-                <div className="flex flex-wrap items-baseline gap-x-[var(--space-2)] gap-y-[var(--space-1)]">
-                  <time
-                    dateTime={entry.date}
-                    className="font-[family-name:var(--font-mono)] text-[var(--text-xs)] text-[var(--color-muted)]"
-                  >
-                    [{entry.date}]
+                <div className="page-tail__log-meta">
+                  <time dateTime={entry.date} className="page-tail__log-date">
+                    {entry.date}
                   </time>
-                  <span className="font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.08em] text-[var(--color-white)]">
-                    {entry.tag}
-                  </span>
+                  <span className="page-tail__log-tag">{entry.tag}</span>
                 </div>
-                <p className="mt-[var(--space-1)] font-[family-name:var(--font-mono)] text-[var(--text-sm)] leading-relaxed text-[var(--color-text)]">
-                  {entry.text}
-                </p>
-              </li>
+                <p className="page-tail__log-text">{entry.text}</p>
+              </motion.li>
             ))}
           </ul>
         </div>

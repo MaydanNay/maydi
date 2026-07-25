@@ -9,13 +9,10 @@ import {
   STUDIO_RESCUE,
   STUDIO_STACK,
 } from '../data/studioContent';
+import { scrollToTarget } from '../lenis/lenisInstance';
 
 function scrollToContact() {
-  const el = document.getElementById('studio-contact');
-  const root = document.getElementById('root');
-  if (!el || !root) return;
-  const top = el.getBoundingClientRect().top - root.getBoundingClientRect().top + root.scrollTop;
-  root.scrollTo({ top, behavior: 'smooth' });
+  scrollToTarget('#studio-contact');
 }
 
 function StudioHero() {
@@ -24,10 +21,10 @@ function StudioHero() {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex justify-between px-[var(--space-3)] pt-[var(--space-4)] md:px-[var(--space-6)]">
         <Link
           to="/"
-          className="pointer-events-auto inline-flex items-center gap-[var(--space-2)] border border-[var(--color-line)] bg-[var(--color-bg-0)]/80 px-[var(--space-3)] py-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.14em] text-[var(--color-muted)] backdrop-blur-sm transition-colors hover:border-[var(--color-muted)] hover:text-[var(--color-white)]"
-        >
-          ← maydi
-        </Link>
+          className="maydi-hover-fill maydi-hover-fill--ghost pointer-events-auto inline-flex items-center gap-[var(--space-2)] px-[var(--space-3)] py-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.14em] backdrop-blur-sm"
+          >
+            <span className="maydi-hover-fill__label">← maydi</span>
+          </Link>
         <p className="pointer-events-none hidden font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.18em] text-[var(--color-muted)] sm:block">
           maydi studio
         </p>
@@ -254,7 +251,7 @@ function StudioContact() {
 
 export default function StudioPage() {
   return (
-    <div className="min-h-screen bg-[var(--color-bg-0)] text-[var(--color-text)]">
+    <div className="content-above-grid min-h-screen bg-[var(--color-bg-0)] text-[var(--color-text)]">
       <StudioHero />
       <StudioRescue />
       <StudioApproach />
@@ -268,9 +265,9 @@ export default function StudioPage() {
           </p>
           <Link
             to="/"
-            className="font-[family-name:var(--font-mono)] text-[var(--text-xs)] text-[var(--color-muted)] transition-colors hover:text-[var(--color-white)]"
+            className="maydi-hover-fill maydi-hover-fill--muted inline-flex px-[var(--space-2)] py-1 font-[family-name:var(--font-mono)] text-[var(--text-xs)]"
           >
-            maydi.net
+            <span className="maydi-hover-fill__label">maydi.net</span>
           </Link>
         </div>
       </footer>

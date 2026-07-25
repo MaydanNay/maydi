@@ -9,10 +9,10 @@ export default function ManifestBridge() {
   return (
     <section
       id="why"
-      className="border-t border-[var(--color-line)] bg-[var(--color-bg-0)] px-[var(--space-3)] py-[var(--space-12)] md:px-[var(--space-6)] md:py-[var(--space-12)]"
+      className="bg-[var(--color-bg-0)] py-[var(--space-20)] md:py-[var(--space-24)]"
     >
-      <div className="mx-auto flex min-h-[50vh] max-w-[var(--max-width)] items-center">
-        <p className="max-w-4xl text-[clamp(22px,3.6vw,36px)] font-semibold leading-snug tracking-tight text-[var(--color-white)]">
+      <div className="mx-auto w-full max-w-[var(--max-width)] px-[var(--space-3)] md:px-[var(--space-6)] flex justify-center">
+        <p className="max-w-2xl text-center text-[clamp(15px,1.8vw,18px)] leading-relaxed text-[var(--color-muted)]">
           {t('bridge.text')}
         </p>
       </div>

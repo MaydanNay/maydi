@@ -1,0 +1,11 @@
+/* Onest — локально с ПК (local) + Google Fonts в index.html */
+@font-face {
+  font-family: 'Onest';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src:
+    local('Onest Variable'),
+    local('Onest'),
+    local('Onest Regular');
+}

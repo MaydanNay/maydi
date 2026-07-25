@@ -190,6 +190,7 @@ export const dictionaries = {
       manifesto: 'Манифест',
       ecosystem: 'Ecosystem',
       enterprise: 'Enterprise',
+      partners: 'Команда',
       masterplan: 'Masterplan',
       pitch: 'Pitch Deck',
       aria: 'Главная навигация',
@@ -210,6 +211,9 @@ export const dictionaries = {
     founders: {
       kicker: 'The Founders',
       title: 'Кто мы',
+      hint: 'Наведите на карточку слева или справа',
+      leftLabel: 'Слева · CEO & CTO',
+      rightLabel: 'Справа · CDO',
       photo: 'тут изображение нас размер изображение 9 на 16',
       people: [
         {
@@ -235,6 +239,7 @@ export const dictionaries = {
       mapText:
         'Вся наша архитектура вращается вокруг единого ядра. Изучите, как взаимодействуют агенты и продукты на интерактивной карте.',
       mapCta: 'Запустить карту экосистемы',
+      readMore: 'Подробнее',
       items: projectsRu,
     },
     masterplan: {
@@ -242,17 +247,86 @@ export const dictionaries = {
       phases: masterplanRu,
     },
     studio: {
+      kicker: 'Enterprise · R&D',
       title: 'Столкновение с реальностью (Enterprise R&D)',
       p1: 'Мы не живем в вакууме. Чтобы наши автономные агенты и AI-архитектуры работали безупречно, мы обкатываем их на реальном бизнесе. Мы берем в работу ограниченное число сложных Enterprise-задач, чтобы тестировать гипотезы и внедрять наше ядро в реальные условия.',
       p2: 'За нашими архитектурами стоит отлаженный механизм: сильная инхаус-команда (от жесткого проектного менеджмента до геймдева и визуального контента) и выстроенная партнерская сеть по B2B-продажам в СНГ. Мы знаем, как не только создавать сложные алгоритмы, но и дистрибутировать их на реальные рынки.',
       cta: 'Enterprise-интеграции',
     },
+    partners: {
+      kicker: 'Team · Partners',
+      title: 'С кем мы работаем',
+      subtitle:
+        'In-house команда и партнёры, которые закрывают delivery, инженерию, визуал и выход на B2B-рынки.',
+      typeInhouse: 'In-house',
+      typePartner: 'Партнёр',
+      people: [
+        {
+          id: 'partner-01',
+          name: 'Алексей Волков',
+          role: 'Lead Project Manager',
+          type: 'inhouse',
+          description:
+            'Держит сроки, scope и коммуникацию с заказчиком. Переводит сложные AI-инициативы в понятный roadmap и контролирует delivery без потери качества.',
+        },
+        {
+          id: 'partner-02',
+          name: 'Мария Ким',
+          role: 'ML Engineer',
+          type: 'inhouse',
+          description:
+            'Собирает RAG-пайплайны, fine-tuning и eval-контуры. Отвечает за то, чтобы модели работали стабильно в проде, а не только в ноутбуке.',
+        },
+        {
+          id: 'partner-03',
+          name: 'Илья Соколов',
+          role: 'Backend Engineer',
+          type: 'inhouse',
+          description:
+            'Проектирует highload API, очереди и хранилища под AI-нагрузку. Строит архитектуру, которая выдерживает рост без переписывания с нуля.',
+        },
+        {
+          id: 'partner-04',
+          name: 'Ника Орлова',
+          role: 'Visual & 3D Designer',
+          type: 'inhouse',
+          description:
+            'Делает визуальный язык продуктов: от UI до motion и 3D-сцен. Превращает сложную технологию в опыт, который считывается с первого экрана.',
+        },
+        {
+          id: 'partner-05',
+          name: 'Дмитрий Ахметов',
+          role: 'B2B Sales Partner · CIS',
+          type: 'partner',
+          description:
+            'Партнёр по enterprise-продажам в СНГ. Выводит наши решения к корпоративным клиентам и помогает упаковывать пилоты в масштабируемые контракты.',
+        },
+        {
+          id: 'partner-06',
+          name: 'Сергей Литвин',
+          role: 'DevOps & Infrastructure',
+          type: 'inhouse',
+          description:
+            'Разворачивает и сопровождает инфраструктуру: CI/CD, мониторинг, безопасность. Связывает R&D и production так, чтобы релизы не ломали бизнес.',
+        },
+        {
+          id: 'partner-07',
+          name: 'Елена Парк',
+          role: 'UX Researcher',
+          type: 'partner',
+          description:
+            'Партнёр по исследованиям: интервью, тесты, карты сценариев. Помогает строить AI-интерфейсы, которые люди реально понимают и используют.',
+        },
+      ],
+    },
     logs: {
+      kicker: 'Engineering',
       title: 'Engineering Logs',
       hint: '// maydi · commit history · read-only',
       entries: logsRu,
     },
     global: {
+      kicker: 'Geography',
       title: 'Global',
       text: 'Масштаб не имеет физических границ. Находясь прямо сейчас в Дананге и оперируя в международном правовом поле (AIFC), мы строим мост на рынки Азии и Южной Кореи. maydi — это компания, которая рождается на стыке культур и технологий. Мы строим компанию глобального значения.',
       infra:
@@ -271,6 +345,12 @@ export const dictionaries = {
       hint: 'Нажмите на узел',
       back: '← maydi',
     },
+    error: {
+      kicker: 'Ошибка',
+      code: '404',
+      text: 'Страница не найдена или была перемещена.',
+      home: 'На главную',
+    },
     modal: {
       close: 'Закрыть',
       description: 'Описание',
@@ -283,6 +363,7 @@ export const dictionaries = {
       manifesto: 'Manifesto',
       ecosystem: 'Ecosystem',
       enterprise: 'Enterprise',
+      partners: 'Team',
       masterplan: 'Masterplan',
       pitch: 'Pitch Deck',
       aria: 'Main navigation',
@@ -303,6 +384,9 @@ export const dictionaries = {
     founders: {
       kicker: 'The Founders',
       title: 'Who we are',
+      hint: 'Hover the card on the left or on the right',
+      leftLabel: 'Left · CEO & CTO',
+      rightLabel: 'Right · CDO',
       photo: 'founder portrait placeholder 9:16',
       people: [
         {
@@ -328,6 +412,7 @@ export const dictionaries = {
       mapText:
         'Our whole architecture spins around one core. Explore how agents and products interact on the live map.',
       mapCta: 'Open ecosystem map',
+      readMore: 'Read more',
       items: projectsEn,
     },
     masterplan: {
@@ -335,17 +420,86 @@ export const dictionaries = {
       phases: masterplanEn,
     },
     studio: {
+      kicker: 'Enterprise · R&D',
       title: 'Collision with reality (Enterprise R&D)',
       p1: 'We don’t live in a vacuum. To keep our autonomous agents and AI architectures sharp, we run them against real business. We take a limited number of hard Enterprise problems to test hypotheses and plant our core in the wild.',
       p2: 'Behind our architectures sits a tuned machine: a strong in-house team (from hard project management to gamedev and visual content) and a built B2B sales partner network across CIS. We know how to invent complex algorithms — and how to distribute them into real markets.',
       cta: 'Enterprise integrations',
     },
+    partners: {
+      kicker: 'Team · Partners',
+      title: 'Who we work with',
+      subtitle:
+        'In-house team and partners covering delivery, engineering, visual craft, and B2B go-to-market.',
+      typeInhouse: 'In-house',
+      typePartner: 'Partner',
+      people: [
+        {
+          id: 'partner-01',
+          name: 'Alexey Volkov',
+          role: 'Lead Project Manager',
+          type: 'inhouse',
+          description:
+            'Owns timelines, scope, and client communication. Turns complex AI initiatives into a clear roadmap and keeps delivery sharp without cutting corners.',
+        },
+        {
+          id: 'partner-02',
+          name: 'Maria Kim',
+          role: 'ML Engineer',
+          type: 'inhouse',
+          description:
+            'Builds RAG pipelines, fine-tuning, and eval loops. Makes sure models behave in production — not just in a notebook demo.',
+        },
+        {
+          id: 'partner-03',
+          name: 'Ilya Sokolov',
+          role: 'Backend Engineer',
+          type: 'inhouse',
+          description:
+            'Designs highload APIs, queues, and storage for AI workloads. Architecture that scales without a full rewrite every quarter.',
+        },
+        {
+          id: 'partner-04',
+          name: 'Nika Orlova',
+          role: 'Visual & 3D Designer',
+          type: 'inhouse',
+          description:
+            'Shapes product visual language — UI, motion, and 3D scenes. Turns hard technology into an experience you feel on the first screen.',
+        },
+        {
+          id: 'partner-05',
+          name: 'Dmitry Akhmetov',
+          role: 'B2B Sales Partner · CIS',
+          type: 'partner',
+          description:
+            'Enterprise sales partner across CIS. Brings our systems to corporate buyers and helps turn pilots into repeatable contracts.',
+        },
+        {
+          id: 'partner-06',
+          name: 'Sergey Litvin',
+          role: 'DevOps & Infrastructure',
+          type: 'inhouse',
+          description:
+            'Deploys and runs infrastructure: CI/CD, monitoring, security. Bridges R&D and production so releases don’t break the business.',
+        },
+        {
+          id: 'partner-07',
+          name: 'Elena Park',
+          role: 'UX Researcher',
+          type: 'partner',
+          description:
+            'Research partner: interviews, testing, journey maps. Helps us build AI interfaces people actually understand and use.',
+        },
+      ],
+    },
     logs: {
+      kicker: 'Engineering',
       title: 'Engineering Logs',
       hint: '// maydi · commit history · read-only',
       entries: logsEn,
     },
     global: {
+      kicker: 'Geography',
       title: 'Global',
       text: 'Scale has no physical borders. Based in Da Nang and operating under international law (AIFC), we build a bridge into Asia and South Korea. maydi is a company born at the seam of cultures and technology. We are building a company of global weight.',
       infra:
@@ -363,6 +517,12 @@ export const dictionaries = {
     ecosystemPage: {
       hint: 'Click a node',
       back: '← maydi',
+    },
+    error: {
+      kicker: 'Error',
+      code: '404',
+      text: 'Page not found or has been moved.',
+      home: 'Back home',
     },
     modal: {
       close: 'Close',

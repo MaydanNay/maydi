@@ -1,103 +1,76 @@
 import { Link } from 'react-router-dom';
 import { PROJECTS } from '../data/content';
 import { useLocale } from '../i18n/LocaleContext';
-import { Card } from './ui/Card';
-import { SectionHeading } from './ui/SectionHeading';
 
-function ProjectCard({ project, copy, statusLabel }) {
+const PROJECT_SLOTS = [
+  { key: 'helixa', slot: 'a' },
+  { key: 'mimora', slot: 'b' },
+  { key: 'mixlink', slot: 'c' },
+  { key: 'vivida', slot: 'd' },
+  { key: 'lyutik', slot: 'e' },
+];
+
+function ProjectCard({ project, copy, statusLabel, readMore, slot }) {
   return (
-    <Card className="flex h-[220px] w-[min(320px,78vw)] shrink-0 flex-col gap-[var(--space-3)]">
-      <div className="flex items-start justify-between gap-[var(--space-2)]">
-        <div>
-          <h3 className="text-[var(--text-lg)] font-semibold text-[var(--color-white)]">
-            {project.label}
-          </h3>
-          <p className="mt-[var(--space-1)] font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--color-muted)]">
-            {copy.role}
-          </p>
-        </div>
-        <span
-          className={`shrink-0 border px-[var(--space-2)] py-[var(--space-1)] font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-wider ${
-            project.status === 'live'
-              ? 'border-[var(--color-white)] text-[var(--color-white)]'
-              : 'border-[var(--color-line)] text-[var(--color-muted)]'
-          }`}
-        >
-          {statusLabel}
-        </span>
-      </div>
-
-      <p className="line-clamp-5 text-[var(--text-sm)] leading-relaxed text-[var(--color-muted)]">
+    <article className={`projects-scatter__card projects-scatter__card--slot-${slot}`}>
+      <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--color-muted)]">
+        {statusLabel} · {copy.role}
+      </p>
+      <h3 className="projects-scatter__card-title mt-[var(--space-3)] text-[clamp(20px,2.4vw,28px)] leading-snug text-[var(--color-white)]">
+        {project.label}
+      </h3>
+      <p className="mt-[var(--space-3)] text-[clamp(14px,1.5vw,16px)] leading-relaxed text-[var(--color-muted)]">
         {copy.summary}
       </p>
-    </Card>
-  );
-}
-
-function ProjectRow({ projects, items, statusLive, statusBuild, inert = false }) {
-  return (
-    <div className="projects-marquee__row" aria-hidden={inert || undefined}>
-      {projects.map((project) => (
-        <ProjectCard
-          key={`${inert ? 'loop' : 'main'}-${project.id}`}
-          project={project}
-          copy={items[project.id]}
-          statusLabel={project.status === 'live' ? statusLive : statusBuild}
-        />
-      ))}
-    </div>
+      <Link
+        to="/ecosystem"
+        className="maydi-hover-fill maydi-hover-fill--muted mt-[var(--space-6)] inline-flex px-[var(--space-2)] py-1 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em]"
+      >
+        <span className="maydi-hover-fill__label">{readMore}</span>
+      </Link>
+    </article>
   );
 }
 
 export default function Projects() {
   const { dict } = useLocale();
   const { projects: p } = dict;
-  const list = Object.values(PROJECTS);
 
   return (
-    <section
-      id="projects"
-      className="border-t border-[var(--color-line)] bg-[var(--color-bg-0)] py-[var(--space-10)]"
-    >
-      <div className="mx-auto max-w-[var(--max-width)] px-[var(--space-3)] md:px-[var(--space-6)]">
-        <SectionHeading kicker={p.kicker} title={p.title} subtitle={p.subtitle} />
-      </div>
-
-      <div className="projects-marquee" aria-label={p.title}>
-        <div className="projects-marquee__track">
-          <ProjectRow
-            projects={list}
-            items={p.items}
-            statusLive={p.statusLive}
-            statusBuild={p.statusBuild}
-          />
-          <ProjectRow
-            projects={list}
-            items={p.items}
-            statusLive={p.statusLive}
-            statusBuild={p.statusBuild}
-            inert
-          />
-        </div>
-      </div>
-
-      <div className="mx-auto mt-[var(--space-8)] max-w-[var(--max-width)] px-[var(--space-3)] md:px-[var(--space-6)]">
-        <div className="border border-[var(--color-line)] bg-[var(--color-bg-1)] p-[var(--space-4)] md:flex md:items-center md:justify-between md:gap-[var(--space-4)]">
-          <div>
-            <p className="font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.16em] text-[var(--color-muted)]">
-              {p.mapKicker}
-            </p>
-            <p className="mt-[var(--space-2)] max-w-xl text-[var(--text-base)] text-[var(--color-text)]">
-              {p.mapText}
-            </p>
-          </div>
-          <Link
-            to="/ecosystem"
-            className="mt-[var(--space-3)] inline-flex shrink-0 items-center gap-[var(--space-2)] border border-[var(--color-white)] bg-[var(--color-white)] px-[var(--space-3)] py-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-sm)] !text-[#0c0c0d] transition-opacity hover:opacity-90 md:mt-0"
-          >
-            {p.mapCta}
-            <span aria-hidden>→</span>
+    <section id="projects" className="projects-scatter bg-[var(--color-bg-0)]">
+      <div className="projects-scatter__stage">
+        <header className="projects-scatter__head">
+          <p className="font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--color-muted)]">
+            {p.kicker}
+          </p>
+          <h2 className="mt-[var(--space-4)] max-w-[14ch] text-[clamp(28px,4.5vw,52px)] uppercase leading-[0.95] tracking-[-0.02em] text-[var(--color-white)]">
+            {p.title}
+          </h2>
+          <p className="mt-[var(--space-4)] max-w-xs text-[var(--text-sm)] leading-relaxed text-[var(--color-muted)]">
+            {p.subtitle}
+          </p>
+          <Link to="/ecosystem" className="projects-scatter__cta maydi-hover-fill maydi-hover-fill--outline mt-[var(--space-8)]">
+            <span className="maydi-hover-fill__label">{p.mapCta}</span>
           </Link>
+        </header>
+
+        <div className="projects-scatter__cards">
+          {PROJECT_SLOTS.map(({ key, slot }) => {
+            const project = PROJECTS[key];
+            const copy = p.items[key];
+            if (!project || !copy) return null;
+
+            return (
+              <ProjectCard
+                key={key}
+                project={project}
+                copy={copy}
+                slot={slot}
+                statusLabel={project.status === 'live' ? p.statusLive : p.statusBuild}
+                readMore={p.readMore}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

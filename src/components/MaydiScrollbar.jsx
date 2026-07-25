@@ -1,20 +1,20 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useLenis } from '../lenis/LenisProvider';
+import { getLenisInstance, getScrollMetrics } from '../lenis/lenisInstance';
 
 /**
- * Custom thin thumb-only scrollbar for #root (hides native OS chrome).
+ * Custom thin thumb-only scrollbar (hides native OS chrome).
  */
 export default function MaydiScrollbar() {
+  const lenis = useLenis();
   const thumbRef = useRef(null);
   const dragging = useRef(false);
   const dragOffset = useRef(0);
   const [visible, setVisible] = useState(false);
 
   useLayoutEffect(() => {
-    const root = document.getElementById('root');
-    if (!root) return undefined;
-
     const sync = () => {
-      const { scrollTop, scrollHeight, clientHeight } = root;
+      const { scrollTop, scrollHeight, clientHeight } = getScrollMetrics();
       const canScroll = scrollHeight > clientHeight + 1;
       setVisible(canScroll);
 
@@ -35,36 +35,42 @@ export default function MaydiScrollbar() {
     };
 
     sync();
-    // Re-sync after paint so thumb exists when visibility flips on
     requestAnimationFrame(sync);
 
-    root.addEventListener('scroll', sync, { passive: true });
+    if (lenis) {
+      lenis.on('scroll', sync);
+    } else {
+      window.addEventListener('scroll', sync, { passive: true });
+    }
+
     window.addEventListener('resize', sync);
 
     const ro = new ResizeObserver(sync);
-    ro.observe(root);
-    if (root.firstElementChild) ro.observe(root.firstElementChild);
+    ro.observe(document.documentElement);
+    if (document.body) ro.observe(document.body);
 
     return () => {
-      root.removeEventListener('scroll', sync);
+      if (lenis) lenis.off('scroll', sync);
+      else window.removeEventListener('scroll', sync);
       window.removeEventListener('resize', sync);
       ro.disconnect();
     };
-  }, []);
+  }, [lenis]);
 
   useEffect(() => {
-    const root = document.getElementById('root');
-    if (!root) return undefined;
-
     const onMove = (e) => {
       if (!dragging.current || !thumbRef.current) return;
-      const { scrollHeight, clientHeight } = root;
+      const instance = getLenisInstance();
+      const { scrollHeight, clientHeight } = getScrollMetrics();
       const thumbH = thumbRef.current.offsetHeight;
       const maxTop = clientHeight - thumbH;
       const y = e.clientY - dragOffset.current;
       const clamped = Math.min(maxTop, Math.max(0, y));
       const progress = maxTop <= 0 ? 0 : clamped / maxTop;
-      root.scrollTop = progress * (scrollHeight - clientHeight);
+      const target = progress * (scrollHeight - clientHeight);
+
+      if (instance) instance.scrollTo(target, { immediate: true });
+      else window.scrollTo({ top: target, behavior: 'auto' });
     };
 
     const onUp = () => {

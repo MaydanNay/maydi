@@ -1,6 +1,6 @@
 export function SectionHeading({ kicker, title, subtitle, className = '' }) {
   return (
-    <header className={`mb-[var(--space-6)] max-w-2xl ${className}`.trim()}>
+    <header className={`mb-[var(--space-12)] max-w-2xl ${className}`.trim()}>
       {kicker ? (
         <p className="mb-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.18em] text-[var(--color-muted)]">
           {kicker}

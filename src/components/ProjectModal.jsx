@@ -66,6 +66,7 @@ export default function ProjectModal({ projectId, onClose }) {
             aria-modal="true"
             aria-labelledby="project-modal-title"
             className="maydi-scroll fixed inset-x-0 bottom-0 z-50 max-h-[85vh] overflow-y-auto border-t border-[var(--color-line)] bg-[var(--color-bg-1)] p-[var(--space-4)] md:inset-y-0 md:right-0 md:left-auto md:w-[min(420px,100%)] md:border-l md:border-t-0"
+            data-lenis-prevent
             {...panelMotion}
             transition={{ type: 'spring', stiffness: 320, damping: 34 }}
           >
