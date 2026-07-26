@@ -164,6 +164,9 @@ function GlassWord({ display, isAccentMid, hasTail, colors, videoTexture, underl
   const group = useRef(null);
   const [widths, setWidths] = useState({ may: 0.4, mid: 0.28, tail: 0 });
 
+  const mayText = underlineMaydan ? 'May' : 'may';
+  const midText = underlineDiana && display.mid === 'di' ? 'Di' : display.mid;
+
   const midVariant = isAccentMid ? 'morph' : 'base';
   const mayW = widths.may;
   const midW = widths.mid;
@@ -186,7 +189,7 @@ function GlassWord({ display, isAccentMid, hasTail, colors, videoTexture, underl
   return (
     <group ref={group}>
       <GlassSegment
-        text="may"
+        text={mayText}
         variant="base"
         colors={colors}
         x={0}
@@ -195,7 +198,7 @@ function GlassWord({ display, isAccentMid, hasTail, colors, videoTexture, underl
         onWidth={(w) => setWidths((prev) => (prev.may === w ? prev : { ...prev, may: w }))}
       />
       <GlassSegment
-        text={display.mid}
+        text={midText}
         variant={midVariant}
         colors={colors}
         x={mayW + SEGMENT_GAP}
@@ -297,19 +300,34 @@ class SceneErrorBoundary extends Component {
 }
 
 export default function HeroGlassScene() {
+  const [active, setActive] = useState(true);
+  const rootRef = useRef(null);
+
+  useEffect(() => {
+    const hero = rootRef.current?.closest('.hero-below-grid');
+    if (!hero) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setActive(Boolean(entry?.isIntersecting)),
+      { threshold: 0.06 },
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <SceneErrorBoundary>
-      <div className="hero-glass-scene pointer-events-none h-full w-full">
+      <div ref={rootRef} className="hero-glass-scene pointer-events-none h-full w-full">
         <Canvas
           className="hero-glass-scene__canvas"
-          dpr={[1, 1.5]}
+          dpr={[1, 1.25]}
+          frameloop={active ? 'always' : 'never'}
           gl={{
             antialias: true,
             alpha: true,
             powerPreference: 'high-performance',
             toneMapping: THREE.ACESFilmicToneMapping,
             toneMappingExposure: 1.15,
-            preserveDrawingBuffer: true,
           }}
           onCreated={({ gl }) => {
             gl.setClearColor(0x000000, 0);

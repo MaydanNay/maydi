@@ -1,9 +1,7 @@
-import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useLocale } from '../i18n/LocaleContext';
 import { SectionHeading } from './ui/SectionHeading';
-
-const ease = [0.22, 1, 0.36, 1];
+import RevealText from './ui/RevealText';
 
 export default function Studio() {
   const { dict } = useLocale();
@@ -12,18 +10,12 @@ export default function Studio() {
   return (
     <section id="studio" className="page-tail__section">
       <div className="page-tail__inner">
-        <motion.div
-          className="page-tail__split"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease }}
-          viewport={{ once: true, margin: '-8% 0px' }}
-        >
+        <div className="page-tail__split">
           <SectionHeading kicker={s.kicker} title={s.title} className="page-tail__split-head mb-0" />
 
           <div className="page-tail__split-body">
-            <p className="page-tail__copy">{s.p1}</p>
-            <p className="page-tail__copy">{s.p2}</p>
+            <RevealText as="p" text={s.p1} mode="words" delay={0.18} stagger={0.026} className="page-tail__copy" />
+            <RevealText as="p" text={s.p2} mode="words" delay={0.32} stagger={0.026} className="page-tail__copy" />
 
             <Link
               to="/studio"
@@ -35,7 +27,7 @@ export default function Studio() {
               </span>
             </Link>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,8 +1,6 @@
-import { motion } from 'framer-motion';
 import { useLocale } from '../i18n/LocaleContext';
 import { SectionHeading } from './ui/SectionHeading';
-
-const ease = [0.22, 1, 0.36, 1];
+import RevealText from './ui/RevealText';
 
 export default function EngineeringLogs() {
   const { dict } = useLocale();
@@ -13,35 +11,52 @@ export default function EngineeringLogs() {
       <div className="page-tail__inner">
         <div className="page-tail__split">
           <div className="page-tail__split-head">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease }}
-              viewport={{ once: true, margin: '-8% 0px' }}
-            >
-              <SectionHeading kicker={logs.kicker} title={logs.title} className="mb-0" />
-              <p className="page-tail__log-hint">{logs.hint}</p>
-            </motion.div>
+            <SectionHeading kicker={logs.kicker} title={logs.title} className="mb-0" />
+            <RevealText
+              as="p"
+              text={logs.hint}
+              mode="words"
+              delay={0.2}
+              stagger={0.04}
+              duration={0.75}
+              className="page-tail__log-hint"
+            />
           </div>
 
           <ul className="page-tail__log-list page-tail__split-body" aria-label={logs.title}>
             {logs.entries.map((entry, index) => (
-              <motion.li
-                key={`${entry.date}-${entry.tag}`}
-                className="page-tail__log-item"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, ease, delay: index * 0.05 }}
-                viewport={{ once: true, margin: '-5% 0px' }}
-              >
+              <li key={`${entry.date}-${entry.tag}`} className="page-tail__log-item">
                 <div className="page-tail__log-meta">
-                  <time dateTime={entry.date} className="page-tail__log-date">
-                    {entry.date}
-                  </time>
-                  <span className="page-tail__log-tag">{entry.tag}</span>
+                  <RevealText
+                    as="time"
+                    text={entry.date}
+                    mode="words"
+                    delay={index * 0.06}
+                    stagger={0.04}
+                    duration={0.75}
+                    dateTime={entry.date}
+                    className="page-tail__log-date"
+                  />
+                  <RevealText
+                    as="span"
+                    text={entry.tag}
+                    mode="words"
+                    delay={0.06 + index * 0.06}
+                    stagger={0.04}
+                    duration={0.75}
+                    className="page-tail__log-tag"
+                  />
                 </div>
-                <p className="page-tail__log-text">{entry.text}</p>
-              </motion.li>
+                <RevealText
+                  as="p"
+                  text={entry.text}
+                  mode="words"
+                  delay={0.12 + index * 0.06}
+                  stagger={0.024}
+                  duration={0.88}
+                  className="page-tail__log-text"
+                />
+              </li>
             ))}
           </ul>
         </div>

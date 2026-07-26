@@ -1,5 +1,7 @@
 /** Site copy: ru (default) + en */
 
+import { PARTNER_PHOTOS } from '../data/content.js';
+
 const projectsRu = {
   helixa: {
     role: 'Ядро экосистемы',
@@ -262,6 +264,24 @@ export const dictionaries = {
       typePartner: 'Партнёр',
       people: [
         {
+          id: 'partner-malika',
+          name: 'Малика',
+          role: 'Стратегический партнёр',
+          type: 'partner',
+          photo: PARTNER_PHOTOS.malika,
+          description:
+            'Партнёр по развитию направлений и выходу на новые рынки. Помогает связывать продуктовую стратегию maydi с реальными возможностями роста.',
+        },
+        {
+          id: 'partner-belek',
+          name: 'Белек',
+          role: 'Партнёр',
+          type: 'partner',
+          photo: PARTNER_PHOTOS.belek,
+          description:
+            'Партнёр по операционному развитию и B2B-связям. Усиливает delivery-команду и помогает выстраивать устойчивые партнёрские контуры.',
+        },
+        {
           id: 'partner-01',
           name: 'Алексей Волков',
           role: 'Lead Project Manager',
@@ -434,6 +454,24 @@ export const dictionaries = {
       typeInhouse: 'In-house',
       typePartner: 'Partner',
       people: [
+        {
+          id: 'partner-malika',
+          name: 'Malika',
+          role: 'Strategic Partner',
+          type: 'partner',
+          photo: PARTNER_PHOTOS.malika,
+          description:
+            'Partner for growth strategy and new market entry. Connects maydi product direction with real expansion opportunities.',
+        },
+        {
+          id: 'partner-belek',
+          name: 'Belek',
+          role: 'Partner',
+          type: 'partner',
+          photo: PARTNER_PHOTOS.belek,
+          description:
+            'Partner for operations and B2B relationships. Strengthens delivery and helps build durable partner networks.',
+        },
         {
           id: 'partner-01',
           name: 'Alexey Volkov',

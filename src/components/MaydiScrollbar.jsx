@@ -10,13 +10,19 @@ export default function MaydiScrollbar() {
   const thumbRef = useRef(null);
   const dragging = useRef(false);
   const dragOffset = useRef(0);
+  const visibleRef = useRef(false);
+  const rafRef = useRef(0);
   const [visible, setVisible] = useState(false);
 
   useLayoutEffect(() => {
     const sync = () => {
       const { scrollTop, scrollHeight, clientHeight } = getScrollMetrics();
       const canScroll = scrollHeight > clientHeight + 1;
-      setVisible(canScroll);
+
+      if (canScroll !== visibleRef.current) {
+        visibleRef.current = canScroll;
+        setVisible(canScroll);
+      }
 
       const thumb = thumbRef.current;
       if (!canScroll || !thumb) return;
@@ -34,26 +40,34 @@ export default function MaydiScrollbar() {
       thumb.style.transform = `translateY(${top}px)`;
     };
 
+    const scheduleSync = () => {
+      if (rafRef.current) return;
+      rafRef.current = requestAnimationFrame(() => {
+        rafRef.current = 0;
+        sync();
+      });
+    };
+
     sync();
-    requestAnimationFrame(sync);
 
     if (lenis) {
-      lenis.on('scroll', sync);
+      lenis.on('scroll', scheduleSync);
     } else {
-      window.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('scroll', scheduleSync, { passive: true });
     }
 
-    window.addEventListener('resize', sync);
+    window.addEventListener('resize', scheduleSync);
 
-    const ro = new ResizeObserver(sync);
+    const ro = new ResizeObserver(scheduleSync);
     ro.observe(document.documentElement);
     if (document.body) ro.observe(document.body);
 
     return () => {
-      if (lenis) lenis.off('scroll', sync);
-      else window.removeEventListener('scroll', sync);
-      window.removeEventListener('resize', sync);
+      if (lenis) lenis.off('scroll', scheduleSync);
+      else window.removeEventListener('scroll', scheduleSync);
+      window.removeEventListener('resize', scheduleSync);
       ro.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [lenis]);
 

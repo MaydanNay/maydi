@@ -43,7 +43,6 @@ export function useHeroVideoTexture() {
 
     let loopStart = 0;
     let loopEnd = 0;
-    let rafId = 0;
 
     const syncLoopBounds = () => {
       if (!Number.isFinite(video.duration) || video.duration <= 0) return;
@@ -64,19 +63,10 @@ export function useHeroVideoTexture() {
       video.play().catch(() => {});
     };
 
-    const tick = () => {
-      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-        videoTexture.needsUpdate = true;
-      }
-      rafId = requestAnimationFrame(tick);
-    };
-
     const onReady = () => {
       syncLoopBounds();
       setTexture(videoTexture);
       tryPlay();
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(tick);
     };
 
     video.addEventListener('loadedmetadata', syncLoopBounds);
@@ -101,7 +91,6 @@ export function useHeroVideoTexture() {
     }
 
     return () => {
-      cancelAnimationFrame(rafId);
       observer?.disconnect();
       video.removeEventListener('loadedmetadata', syncLoopBounds);
       video.removeEventListener('loadeddata', onReady);

@@ -8,6 +8,7 @@ import StudioPage from './pages/StudioPage';
 import ErrorPage from './pages/ErrorPage';
 import MaydiScrollbar from './components/MaydiScrollbar';
 import DotGridOverlay from './components/DotGridOverlay';
+import PetrolScrollBlur from './components/PetrolScrollBlur';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <BrowserRouter>
         <LenisProvider>
           <DotGridOverlay />
+          <PetrolScrollBlur />
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocale } from '../i18n/LocaleContext';
 import { usePingPongVideo } from '../hooks/usePingPongVideo';
+import RevealText from './ui/RevealText';
 
 const FOOTER_VIDEO = '/assets/gen_8b15461d-d1d9-4b37-9ed0-cd05e27c01ca.mp4';
 
@@ -38,7 +39,7 @@ export default function Footer() {
           autoPlay
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           disablePictureInPicture
         />
       </div>
@@ -49,10 +50,23 @@ export default function Footer() {
         <div className="mx-auto flex max-w-[var(--max-width)] flex-col gap-[var(--space-12)]">
           <div className="flex flex-col gap-[var(--space-4)] md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-[var(--text-xl)] font-semibold text-[var(--color-white)]">maydi</p>
-              <p className="mt-[var(--space-1)] font-[family-name:var(--font-mono)] text-[var(--text-xs)] text-[var(--color-muted)]">
-                {t('footer.tagline')}
-              </p>
+              <RevealText
+                as="p"
+                text="maydi"
+                mode="chars"
+                stagger={0.045}
+                duration={0.7}
+                className="text-[var(--text-xl)] font-semibold text-[var(--color-white)]"
+              />
+              <RevealText
+                as="p"
+                text={t('footer.tagline')}
+                mode="words"
+                delay={0.12}
+                stagger={0.035}
+                duration={0.75}
+                className="mt-[var(--space-1)] font-[family-name:var(--font-mono)] text-[var(--text-xs)] text-[var(--color-muted)]"
+              />
             </div>
 
             <nav

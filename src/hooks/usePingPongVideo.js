@@ -19,6 +19,7 @@ export function usePingPongVideo(videoRef, containerRef) {
     let direction = 1;
     let driverRaf = 0;
     let lastTs = 0;
+    let visible = false;
 
     const stopDriver = () => {
       cancelAnimationFrame(driverRaf);
@@ -27,7 +28,7 @@ export function usePingPongVideo(videoRef, containerRef) {
     };
 
     const playForward = () => {
-      if (disposed) return;
+      if (disposed || !visible) return;
       direction = 1;
       stopDriver();
       video.playbackRate = 1;
@@ -40,7 +41,7 @@ export function usePingPongVideo(videoRef, containerRef) {
     };
 
     const startReverse = () => {
-      if (disposed || direction === -1) return;
+      if (disposed || !visible || direction === -1) return;
       direction = -1;
       stopDriver();
       video.pause();
@@ -51,7 +52,7 @@ export function usePingPongVideo(videoRef, containerRef) {
     };
 
     const reverseStep = (ts) => {
-      if (disposed || direction !== -1) return;
+      if (disposed || direction !== -1 || !visible) return;
 
       if (!Number.isFinite(video.duration) || video.duration <= 0) {
         driverRaf = requestAnimationFrame(reverseStep);
@@ -75,7 +76,7 @@ export function usePingPongVideo(videoRef, containerRef) {
     };
 
     const maybeStartReverse = () => {
-      if (direction !== 1) return;
+      if (direction !== 1 || !visible) return;
       if (!Number.isFinite(video.duration) || video.duration <= 0) return;
       if (video.currentTime >= video.duration - END_EPSILON) {
         startReverse();
@@ -91,7 +92,7 @@ export function usePingPongVideo(videoRef, containerRef) {
     };
 
     const ensureForward = () => {
-      if (disposed || direction === -1) return;
+      if (disposed || !visible || direction === -1) return;
       if (!Number.isFinite(video.duration) || video.duration <= 0) return;
       if (video.currentTime >= video.duration - END_EPSILON) return;
 
@@ -108,18 +109,25 @@ export function usePingPongVideo(videoRef, containerRef) {
     video.addEventListener('loadeddata', ensureForward);
     video.addEventListener('canplay', ensureForward);
 
-    video.currentTime = 0;
-    ensureForward();
-
     let observer;
     if (root) {
       observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry?.isIntersecting) ensureForward();
+          visible = Boolean(entry?.isIntersecting);
+          if (visible) {
+            ensureForward();
+            return;
+          }
+          stopDriver();
+          video.pause();
         },
-        { threshold: 0.05 },
+        { threshold: 0.08 },
       );
       observer.observe(root);
+    } else {
+      visible = true;
+      video.currentTime = 0;
+      ensureForward();
     }
 
     return () => {

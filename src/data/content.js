@@ -1,3 +1,9 @@
+/** Partner / team portrait paths (public/assets). */
+export const PARTNER_PHOTOS = {
+  malika: '/assets/malika.jpg',
+  belek: '/assets/belek.jpg',
+};
+
 /** Ecosystem products (interactive graph + sidebar). */
 export const PROJECTS = {
   helixa: {
@@ -9,6 +15,7 @@ export const PROJECTS = {
       'Проприетарное AI-ядро: психология, гибридная память и Gatekeeper для автономных агентов.',
     stack: ['Python', 'LLM / RAG', 'Neo4j', 'Qdrant', 'K8s'],
     problem: 'Дать продуктам устойчивые цифровые личности вместо шаблонных чат-ботов.',
+    preview: { image: '/assets/helixa.png' },
   },
   mimora: {
     id: 'mimora',
@@ -19,6 +26,7 @@ export const PROJECTS = {
       'B2B SaaS для CustDev и кампаний на синтетических аудиториях до реальных бюджетов.',
     stack: ['Synthetic Data', 'Behavior Simulation', 'ClickHouse', 'Helixa API'],
     problem: 'Снизить риск слепых гипотез: тестировать смыслы на реалистичных ИИ-фокус-группах.',
+    preview: { image: '/assets/mimora.png', href: 'https://mimora.io/' },
   },
   vivida: {
     id: 'vivida',
@@ -38,6 +46,7 @@ export const PROJECTS = {
     summary: 'ИИ-эдвайзер и супервизор для личных и операционных решений.',
     stack: ['LLM agents', 'Memory', 'Tools'],
     problem: 'Свести разрозненные задачи в одного персонального агента с характером.',
+    preview: { image: '/assets/lyutik.png' },
   },
   mixlink: {
     id: 'mixlink',

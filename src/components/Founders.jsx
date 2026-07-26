@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocale } from '../i18n/LocaleContext';
+import RevealText from './ui/RevealText';
 
 const PHOTOS = {
   base: '/assets/%D0%B1%D0%B0%D0%B7%D0%B0.png',
@@ -36,22 +37,22 @@ export default function Founders() {
         <img
           src={PHOTOS.base}
           alt=""
-          className={`founders-photo founders-photo--base absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
-            active ? 'opacity-0 blur-0' : 'opacity-35 blur-2xl'
+          className={`founders-photo founders-photo--base absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+            active ? 'opacity-0' : 'opacity-35'
           }`}
         />
         <img
           src={PHOTOS.maidan}
           alt=""
-          className={`founders-photo founders-photo--maidan absolute inset-0 h-full w-full object-contain object-left transition-all duration-700 ease-out ${
-            maidanPhotoActive ? 'opacity-80 blur-0' : 'pointer-events-none opacity-0 blur-2xl'
+          className={`founders-photo founders-photo--maidan absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-700 ease-out ${
+            maidanPhotoActive ? 'opacity-80' : 'pointer-events-none opacity-0'
           }`}
         />
         <img
           src={PHOTOS.diana}
           alt=""
-          className={`founders-photo founders-photo--diana absolute inset-0 h-full w-full object-contain object-right transition-all duration-700 ease-out ${
-            dianaPhotoActive ? 'opacity-80 blur-0' : 'pointer-events-none opacity-0 blur-2xl'
+          className={`founders-photo founders-photo--diana absolute inset-0 h-full w-full object-contain object-right transition-opacity duration-700 ease-out ${
+            dianaPhotoActive ? 'opacity-80' : 'pointer-events-none opacity-0'
           }`}
         />
         <div
@@ -63,19 +64,33 @@ export default function Founders() {
 
       <div className="relative z-10 mx-auto flex min-h-[min(100svh,1200px)] max-w-[var(--max-width)] flex-col px-[var(--space-3)] py-[var(--space-20)] md:px-[var(--space-6)] md:py-[var(--space-24)]">
         <header className="mb-[var(--space-8)] max-w-xl">
-          <p className="mb-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.14em] text-[var(--color-muted)]">
-            {f.kicker}
-          </p>
-          <h2 className="text-[clamp(22px,3vw,30px)] font-semibold leading-tight text-[var(--color-white)]">
-            {f.title}
-          </h2>
-          <p
+          <RevealText
+            as="p"
+            text={f.kicker}
+            mode="words"
+            stagger={0.055}
+            duration={0.75}
+            className="mb-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-xs)] uppercase tracking-[0.14em] text-[var(--color-muted)]"
+          />
+          <RevealText
+            as="h2"
+            text={f.title}
+            mode="words"
+            delay={0.1}
+            stagger={0.045}
+            className="text-[clamp(22px,3vw,30px)] font-semibold leading-tight text-[var(--color-white)]"
+          />
+          <RevealText
+            as="p"
+            text={f.hint}
+            mode="words"
+            delay={0.2}
+            stagger={0.05}
+            duration={0.75}
             className={`founders-hint mt-[var(--space-4)] font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.14em] text-[var(--color-muted)] transition-opacity duration-300 ${
               active ? 'opacity-0' : 'opacity-100'
             }`}
-          >
-            {f.hint}
-          </p>
+          />
         </header>
 
         <div className="grid flex-1 grid-cols-1 gap-[var(--space-4)] md:grid-cols-2 md:gap-[var(--space-6)]">
@@ -96,9 +111,32 @@ export default function Founders() {
             aria-pressed={active === 'maidan'}
             aria-label={maidan.name}
           >
-            <p className="founders-card__label">{f.leftLabel}</p>
-            <h3 className="founders-card__name">{maidan.name}</h3>
-            <p className="founders-card__role">{maidan.title}</p>
+            <RevealText
+              as="p"
+              text={f.leftLabel}
+              mode="words"
+              delay={0.12}
+              stagger={0.04}
+              duration={0.75}
+              className="founders-card__label"
+            />
+            <RevealText
+              as="h3"
+              text={maidan.name}
+              mode="words"
+              delay={0.18}
+              stagger={0.035}
+              className="founders-card__name"
+            />
+            <RevealText
+              as="p"
+              text={maidan.title}
+              mode="words"
+              delay={0.24}
+              stagger={0.04}
+              duration={0.75}
+              className="founders-card__role"
+            />
             <p
               className={`founders-card__bio mt-[var(--space-4)] max-w-md text-[var(--text-base)] leading-relaxed text-[var(--color-text)] ${
                 active === 'maidan' ? 'founders-card__bio--visible' : ''
@@ -128,9 +166,32 @@ export default function Founders() {
             aria-pressed={active === 'diana'}
             aria-label={diana.name}
           >
-            <p className="founders-card__label">{f.rightLabel}</p>
-            <h3 className="founders-card__name">{diana.name}</h3>
-            <p className="founders-card__role">{diana.title}</p>
+            <RevealText
+              as="p"
+              text={f.rightLabel}
+              mode="words"
+              delay={0.12}
+              stagger={0.04}
+              duration={0.75}
+              className="founders-card__label"
+            />
+            <RevealText
+              as="h3"
+              text={diana.name}
+              mode="words"
+              delay={0.18}
+              stagger={0.035}
+              className="founders-card__name"
+            />
+            <RevealText
+              as="p"
+              text={diana.title}
+              mode="words"
+              delay={0.24}
+              stagger={0.04}
+              duration={0.75}
+              className="founders-card__role"
+            />
             <p
               className={`founders-card__bio mt-[var(--space-4)] max-w-md text-[var(--text-base)] leading-relaxed text-[var(--color-text)] md:ml-auto ${
                 active === 'diana' ? 'founders-card__bio--visible' : ''

@@ -1,8 +1,6 @@
-import { motion } from 'framer-motion';
 import { useLocale } from '../i18n/LocaleContext';
 import { SectionHeading } from './ui/SectionHeading';
-
-const ease = [0.22, 1, 0.36, 1];
+import RevealText from './ui/RevealText';
 
 export default function GlobalVector() {
   const { dict } = useLocale();
@@ -11,16 +9,9 @@ export default function GlobalVector() {
   return (
     <section id="global" className="page-tail__section page-tail__section--last">
       <div className="page-tail__inner">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease }}
-          viewport={{ once: true, margin: '-8% 0px' }}
-        >
-          <SectionHeading kicker={g.kicker} title={g.title} />
-          <p className="page-tail__lead">{g.text}</p>
-          <p className="page-tail__note">{g.infra}</p>
-        </motion.div>
+        <SectionHeading kicker={g.kicker} title={g.title} />
+        <RevealText as="p" text={g.text} mode="words" delay={0.2} stagger={0.026} className="page-tail__lead" />
+        <RevealText as="p" text={g.infra} mode="words" delay={0.38} stagger={0.028} className="page-tail__note" />
       </div>
     </section>
   );
