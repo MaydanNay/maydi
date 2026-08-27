@@ -8,6 +8,18 @@ export default defineConfig({
     port: 5180,
     strictPort: true,
     host: true,
+    // Local: maydi_studio on 5174 + backend on 8000
+    proxy: {
+      '/studio': {
+        target: 'http://127.0.0.1:5174',
+        changeOrigin: true,
+        ws: true,
+      },
+      '/api': {
+        target: 'http://127.0.0.1:8000',
+        changeOrigin: true,
+      },
+    },
   },
   preview: {
     port: 4180,

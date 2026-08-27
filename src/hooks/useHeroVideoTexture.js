@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import * as THREE from 'three';
 
-export const HERO_BRAND_VIDEO = '/assets/gen_8b15461d-d1d9-4b37-9ed0-cd05e27c01ca.mp4';
+import { ASSETS } from '../data/assets.js';
+
+export const HERO_BRAND_VIDEO = ASSETS.brandVideo;
 
 /** Top-left anchor, wide crop — as much of the frame as fits in the letters. */
 const VIDEO_CROP = {
@@ -32,7 +34,7 @@ export function useHeroVideoTexture() {
     video.muted = true;
     video.loop = false;
     video.playsInline = true;
-    video.preload = 'auto';
+    video.preload = 'metadata';
     video.crossOrigin = 'anonymous';
 
     const videoTexture = new THREE.VideoTexture(video);

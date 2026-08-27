@@ -1,0 +1,2 @@
+# SPA deep links for maydi_studio under /studio
+/studio/*    /studio/index.html   200

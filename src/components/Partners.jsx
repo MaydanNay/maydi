@@ -1,18 +1,37 @@
 import { useLocale } from '../i18n/LocaleContext';
 import { useStickyHorizontalScroll } from '../hooks/useStickyHorizontalScroll';
-import PhotoTrailReveal from './ui/PhotoTrailReveal';
 import RevealText from './ui/RevealText';
+
+function PartnerPhoto({ src, objectPosition }) {
+  if (!src) {
+    return <div className="photo-trail photo-trail--empty" aria-hidden />;
+  }
+
+  return (
+    <div className="photo-trail">
+      <img
+        className="photo-trail__img"
+        src={src}
+        alt=""
+        draggable={false}
+        loading="lazy"
+        decoding="async"
+        style={objectPosition ? { objectPosition } : undefined}
+      />
+    </div>
+  );
+}
 
 function PartnerCard({ person, typeLabel }) {
   return (
     <article className="partners-rail__card">
       <div className="partners-rail__photo">
-        <PhotoTrailReveal src={person.photo} />
-      </div>
-      <div className="partners-rail__body">
+        <PartnerPhoto src={person.photo} objectPosition={person.photoPosition} />
         <span className="partners-rail__type">
           {person.type === 'partner' ? typeLabel.partner : typeLabel.inhouse}
         </span>
+      </div>
+      <div className="partners-rail__body">
         <h3 className="partners-rail__name">{person.name}</h3>
         <p className="partners-rail__role">{person.role}</p>
         <p className="partners-rail__desc">{person.description}</p>

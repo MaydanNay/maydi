@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useLocale } from '../i18n/LocaleContext';
 import { SectionHeading } from './ui/SectionHeading';
 import RevealText from './ui/RevealText';
@@ -17,15 +16,15 @@ export default function Studio() {
             <RevealText as="p" text={s.p1} mode="words" delay={0.18} stagger={0.026} className="page-tail__copy" />
             <RevealText as="p" text={s.p2} mode="words" delay={0.32} stagger={0.026} className="page-tail__copy" />
 
-            <Link
-              to="/studio"
-              className="maydi-hover-fill maydi-hover-fill--ghost mt-[var(--space-8)] inline-flex items-center gap-[var(--space-2)] px-[var(--space-3)] py-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-sm)]"
+            <a
+              href="/studio/"
+              className="maydi-hover-fill maydi-hover-fill--ghost mt-[var(--space-8)] w-max max-w-full whitespace-nowrap px-[var(--space-3)] py-[var(--space-2)] font-[family-name:var(--font-mono)] text-[var(--text-sm)]"
             >
               <span className="maydi-hover-fill__label">{s.cta}</span>
               <span className="maydi-hover-fill__label" aria-hidden>
                 →
               </span>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

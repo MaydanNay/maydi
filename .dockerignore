@@ -1,0 +1,28 @@
+# Build context for company site + studio
+.git
+.gitignore
+**/.DS_Store
+**/Thumbs.db
+
+# Dependencies & build outputs
+node_modules
+**/node_modules
+dist
+**/dist
+**/coverage
+**/.vite
+
+# Never bake local env into the frontend image (Vite reads VITE_* at build time)
+**/.env
+**/.env.*
+!**/.env.example
+
+# Backend is a separate image — keep it out of the web build context
+maydi_studio/backend-roaster
+
+# Local / editor noise
+.vscode
+.idea
+_legacy
+_s3_backup
+agent-transcripts

@@ -1,8 +1,9 @@
-import { useRef } from 'react';
+import { lazy, Suspense, useRef } from 'react';
 import { useLocale } from '../i18n/LocaleContext';
 import RevealText from './ui/RevealText';
-import HeroGlassScene from './HeroGlassScene';
 import HeroTeamPhoto from './HeroTeamPhoto';
+
+const HeroGlassScene = lazy(() => import('./HeroGlassScene'));
 
 export default function Hero() {
   const { t } = useLocale();
@@ -16,7 +17,9 @@ export default function Hero() {
       <HeroTeamPhoto sectionRef={sectionRef} />
 
       <div className="pointer-events-none absolute inset-0 z-[18]" aria-hidden>
-        <HeroGlassScene />
+        <Suspense fallback={null}>
+          <HeroGlassScene />
+        </Suspense>
         <div
           className="absolute inset-0"
           style={{

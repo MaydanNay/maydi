@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useLocale } from '../i18n/LocaleContext';
 import RevealText from './ui/RevealText';
 
+import { ASSETS } from '../data/assets.js';
+
 const PHOTOS = {
-  base: '/assets/%D0%B1%D0%B0%D0%B7%D0%B0.png',
-  maidan: '/assets/maydan.png',
-  diana: '/assets/diana.png',
+  base: ASSETS.baza,
+  maidan: ASSETS.maydan,
+  diana: ASSETS.diana,
 };
 
 function cardClass(active, id) {
@@ -37,6 +39,8 @@ export default function Founders() {
         <img
           src={PHOTOS.base}
           alt=""
+          loading="lazy"
+          decoding="async"
           className={`founders-photo founders-photo--base absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
             active ? 'opacity-0' : 'opacity-35'
           }`}
@@ -44,6 +48,8 @@ export default function Founders() {
         <img
           src={PHOTOS.maidan}
           alt=""
+          loading="lazy"
+          decoding="async"
           className={`founders-photo founders-photo--maidan absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-700 ease-out ${
             maidanPhotoActive ? 'opacity-80' : 'pointer-events-none opacity-0'
           }`}
@@ -51,6 +57,8 @@ export default function Founders() {
         <img
           src={PHOTOS.diana}
           alt=""
+          loading="lazy"
+          decoding="async"
           className={`founders-photo founders-photo--diana absolute inset-0 h-full w-full object-contain object-right transition-opacity duration-700 ease-out ${
             dianaPhotoActive ? 'opacity-80' : 'pointer-events-none opacity-0'
           }`}

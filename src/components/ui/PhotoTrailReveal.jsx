@@ -152,12 +152,12 @@ export default function PhotoTrailReveal({ src }) {
       onPointerMove={onPointerMove}
       onPointerEnter={onPointerMove}
     >
-      <img className="photo-trail__img photo-trail__img--gray" src={src} alt="" draggable={false} />
+      <img className="photo-trail__img photo-trail__img--gray" src={src} alt="" loading="lazy" decoding="async" draggable={false} />
       <div
         ref={colorRef}
         className={`photo-trail__color${ready ? ' photo-trail__color--ready' : ''}`}
       >
-        <img className="photo-trail__img" src={src} alt="" draggable={false} />
+        <img className="photo-trail__img" src={src} alt="" loading="lazy" decoding="async" draggable={false} />
       </div>
       <canvas ref={canvasRef} className="photo-trail__canvas" aria-hidden />
     </div>

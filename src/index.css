@@ -434,8 +434,10 @@ button {
   overflow: hidden;
   isolation: isolate;
   transition: color 0.25s ease;
-  display: inline-grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
   vertical-align: middle;
 }
 
@@ -775,9 +777,11 @@ button {
 }
 
 .partners-rail__photo {
+  position: relative;
   flex-shrink: 0;
   width: 100%;
-  height: clamp(11rem, 28vh, 14rem);
+  height: auto;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   border-bottom: 1px solid var(--color-line);
   background: rgba(255, 255, 255, 0.03);
@@ -852,14 +856,18 @@ button {
 }
 
 .partners-rail__type {
-  align-self: flex-start;
-  border: 1px solid var(--color-line);
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 1;
   padding: var(--space-1) var(--space-2);
   font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-muted);
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .partners-rail__name {
@@ -1310,5 +1318,215 @@ button {
   .site-footer__video {
     display: none;
   }
+}
+
+.footer-contacts {
+  position: relative;
+}
+
+.footer-contacts__trigger {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+}
+
+.footer-contacts__panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 30;
+  min-width: min(320px, 86vw);
+  padding-top: 12px;
+  background: transparent;
+  border: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.16s ease, visibility 0.16s ease;
+}
+
+.footer-contacts__panel-inner {
+  padding: var(--space-3);
+  border: 1px solid var(--color-line);
+  background: rgba(12, 12, 13, 0.96);
+  backdrop-filter: blur(10px);
+  border-radius: 0;
+  transform: translateY(-4px);
+  transition: transform 0.16s ease;
+}
+
+.footer-contacts:hover .footer-contacts__panel,
+.footer-contacts:focus-within .footer-contacts__panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.footer-contacts:hover .footer-contacts__panel-inner,
+.footer-contacts:focus-within .footer-contacts__panel-inner {
+  transform: translateY(0);
+}
+
+.footer-contacts__person + .footer-contacts__person {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.footer-contacts__name {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-white);
+}
+
+.footer-contacts__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45em 0.7em;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: 1.45;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contacts__link:hover,
+.footer-contacts__link:focus-visible {
+  color: var(--color-white);
+}
+
+.footer-contacts__kind {
+  color: var(--color-muted);
+}
+
+.dataroom-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.62);
+  border: 0;
+}
+
+.dataroom-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  pointer-events: none;
+}
+
+.dataroom-modal__panel {
+  pointer-events: auto;
+  width: min(640px, 100%);
+  max-height: min(90svh, 720px);
+  padding: var(--space-5);
+  overflow-y: auto;
+  border: 1px solid var(--color-line);
+  background: var(--color-bg-0);
+  border-radius: 0;
+}
+
+.dataroom-modal__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.dataroom-modal__kicker {
+  margin: 0 0 var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.dataroom-modal__title {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-white);
+}
+
+.dataroom-modal__close {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  margin: -6px -8px 0 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--color-muted);
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.dataroom-modal__close:hover,
+.dataroom-modal__close:focus-visible {
+  color: var(--color-white);
+}
+
+.dataroom-modal__form {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.dataroom-modal__label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.dataroom-modal__label > span {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.dataroom-modal__input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  background: var(--color-bg-1, var(--color-bg-0));
+  border: 1px solid var(--color-line);
+  border-radius: 0;
+  outline: none;
+}
+
+.dataroom-modal__input:focus {
+  border-color: var(--color-muted);
+}
+
+.dataroom-modal__input--area {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.dataroom-modal__submit {
+  width: 100%;
+  margin-top: var(--space-1);
+  justify-self: stretch;
 }
 

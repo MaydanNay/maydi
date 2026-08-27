@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLocale } from '../i18n/LocaleContext';
+import { useDataRoomModal } from '../context/DataRoomModalContext';
 import { useLenis } from '../lenis/LenisProvider';
 import { getScrollTop, scrollToTarget, scrollToTop } from '../lenis/lenisInstance';
 
@@ -17,7 +18,6 @@ const LANGS = [
   { code: 'ru', label: 'RU' },
 ];
 
-const PITCH_HREF = 'mailto:partners@maydi.net?subject=Request%3A%20Pitch%20Deck';
 const HEADER_HEIGHT = 64;
 const HEADER_OFFSET = HEADER_HEIGHT;
 const HERO_DOCK_BOTTOM = 0;
@@ -43,6 +43,7 @@ function getHeroHeaderY(scrollTop, dockOffset, forceTop) {
 
 export default function Header() {
   const { locale, setLocale, t } = useLocale();
+  const { openDataRoom } = useDataRoomModal();
   const lenis = useLenis();
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -222,12 +223,13 @@ export default function Header() {
             <span className="maydi-hover-fill__label">{currentLang}</span>
           </button>
 
-          <a
-            href={PITCH_HREF}
+          <button
+            type="button"
             className="header-nav-link header-nav-link--pitch hidden sm:inline-flex"
+            onClick={openDataRoom}
           >
-            <span className="maydi-hover-fill__label">{t('nav.pitch')}</span>
-          </a>
+            <span className="maydi-hover-fill__label">{t('nav.dataRoom')}</span>
+          </button>
 
           <button
             type="button"
@@ -275,9 +277,16 @@ export default function Header() {
               </li>
             ))}
             <li>
-              <a href={PITCH_HREF} className={`${chip} header-nav-link--pitch`} onClick={() => setOpen(false)}>
-                <span className="maydi-hover-fill__label">{t('nav.pitch')}</span>
-              </a>
+              <button
+                type="button"
+                className={`${chip} header-nav-link--pitch`}
+                onClick={() => {
+                  setOpen(false);
+                  openDataRoom();
+                }}
+              >
+                <span className="maydi-hover-fill__label">{t('nav.dataRoom')}</span>
+              </button>
             </li>
           </ul>
         </nav>

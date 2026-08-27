@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-export const TEAM_PHOTO = '/assets/team.jpg';
+import { ASSETS } from '../data/assets.js';
+
+export const TEAM_PHOTO = ASSETS.team;
 
 const MAX_SHIFT = 20;
 const LERP = 0.07;
